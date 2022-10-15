@@ -11,7 +11,7 @@
 <body>
     <div class="big_screen">
         <div class="pic_screen">
-            <div class="temperature">26&deg</div>
+            <div class="temperature"></div>
             <div class="info_place">
                 <div class="city">London</div>
                 <div class="time_date">
@@ -22,7 +22,7 @@
             </div>
             <div class="info_weather">
                 <div class="pic">
-                    <img src="img/sun-free-icon-font.png">
+                    <img id="weather_icon" src="img/sun-free-icon-font.png">
                 </div>
                 <div class="type_of_weather">Sunny</div>
             </div>   
@@ -49,19 +49,19 @@
                         <ul class="indicators">
                             <li>
                                 <span>Cloudy</span>
-                                <span>12%</span>
+                                <span id="clouds"></span>
                             </li>
                             <li>
                                 <span>Humidity</span>
-                                <span>78%</span>
+                                <span id="humidity"></span>
                             </li>
                             <li>
                                 <span>Wind</span>
-                                <span>1km/h</span>
+                                <span id="wind"></span>
                             </li>
                             <li>
                                 <span>Rain</span>
-                                <span>0mm</span>
+                                <span id="rain"></span>
                             </li>
                         </ul>
                     </div>
@@ -70,5 +70,13 @@
             </div>
         </div>
     </div>
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous">
+    </script>
+    <script src="js/script.js"></script>
+
 </body>
 </html>
