@@ -156,3 +156,7 @@ hr {
     justify-content: space-between;
     width: 100%;
 }
+
+.cities_list li{
+    cursor: pointer;
+}
