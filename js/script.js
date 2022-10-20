@@ -77,6 +77,12 @@ function getPic(value) {
 function getWeather(city) {
     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=28119160885401e9463aae59c6f18e4e`, function(data) {
         const condition = data.weather[0].main;
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const nowTime = new Date();
+        const currDay = nowTime.getDay();
+        const currMonth = nowTime.getMonth();
+        
         $('#clouds').text(`${data.clouds.all}%`);
         $('#humidity').text(`${data.main.humidity}%`);
         $('#wind').text(`${data.wind.speed}m/s`);
@@ -85,7 +91,12 @@ function getWeather(city) {
         $('.city').text(`${data.name}`);
         $('#weather_icon').attr('src', getIcon(condition));
         $('.type_of_weather').text(condition);
-        $('.big_screen').css('background-image',`url(${getPic(condition)})`)
+        $('.big_screen').css('background-image',`url(${getPic(condition)})`);
+        $('.time').text(`${nowTime.getHours()}:${nowTime.getMinutes()} -`);
+        $('.day_of_week').text(`${days[currDay]},`);
+        $('.month').text(`${nowTime.getDate()} ${months[currMonth]}`);
+    }).fail(function(){
+        alert("City doesn't exist");
     });
 }
 
@@ -105,4 +116,6 @@ $(document).ready(function(){
             getWeather($(this).val());
         }
     });
+
+    
 });

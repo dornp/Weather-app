@@ -151,12 +151,16 @@ hr {
     width: 100%;
 }
 
-.indicators li{
+.indicators li {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.cities_list li{
+.cities_list li {
     cursor: pointer;
+}
+
+.cities_list li:hover {
+    opacity: 0.5;
 }
