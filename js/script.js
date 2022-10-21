@@ -77,11 +77,6 @@ function getPic(value) {
 function getWeather(city) {
     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=28119160885401e9463aae59c6f18e4e`, function(data) {
         const condition = data.weather[0].main;
-        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const nowTime = new Date();
-        const currDay = nowTime.getDay();
-        const currMonth = nowTime.getMonth();
         
         $('#clouds').text(`${data.clouds.all}%`);
         $('#humidity').text(`${data.main.humidity}%`);
@@ -91,16 +86,42 @@ function getWeather(city) {
         $('.city').text(`${data.name}`);
         $('#weather_icon').attr('src', getIcon(condition));
         $('.type_of_weather').text(condition);
-        $('.big_screen').css('background-image',`url(${getPic(condition)})`);
-        $('.time').text(`${nowTime.getHours()}:${nowTime.getMinutes()} -`);
-        $('.day_of_week').text(`${days[currDay]},`);
-        $('.month').text(`${nowTime.getDate()} ${months[currMonth]}`);
+        $('.big_screen').css('background-image',`url(${getPic(condition)})`); 
     }).fail(function(){
         alert("City doesn't exist");
     });
 }
 
+function setDigits (num) {
+    if (num < 10) {
+        return '0' + num;
+    }
+    return num;
+}
+
+function timer(sec) {
+    setTimeout(function () {
+        const nowTime = new Date();
+        $('.time').text(`${setDigits(nowTime.getHours())}:${setDigits(nowTime.getMinutes())} -`);
+        timer(60);
+    }, sec * 1000);
+}
+
 $(document).ready(function(){
+    const nowTime = new Date();
+
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const currDay = nowTime.getDay();
+    const currMonth = nowTime.getMonth();
+    
+    const secLeft = 60 - nowTime.getSeconds();
+    timer(secLeft);
+   
+    $('.time').text(`${setDigits(nowTime.getHours())}:${setDigits(nowTime.getMinutes())} -`);
+    $('.day_of_week').text(`${days[currDay]},`);
+    $('.month').text(`${nowTime.getDate()} ${months[currMonth]}`);
+
     $('.town').click(function(){
         getWeather($(this).text());
     });
@@ -116,6 +137,4 @@ $(document).ready(function(){
             getWeather($(this).val());
         }
     });
-
-    
 });
